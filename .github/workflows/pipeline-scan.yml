@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build
-        run: gradle clean build
-  baseline:
+        run: mvn clean verify
+  pipeline-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 1.8
@@ -21,30 +21,5 @@ jobs:
           args: -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
       - name: Unzip the Pipeline Scanner
         run: unzip pipeline-scan-LATEST.zip
-      - name: Create Baseline
-        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "example.jar" --json_output_file="baseline.json" || true
-      - name: Upload Baseline
-        uses: actions/upload-artifact@v1
-        with:
-          name: baseline
-          path: baseline.json
-  baseline-scan:
-    runs-on: ubuntu-latest
-    needs: baseline
-    steps:
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: Download the Pipeline Scanner
-        uses: wei/curl@master
-        with:
-          args: -O https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip
-      - name: Unzip the Pipeline Scanner
-        run: unzip pipeline-scan-LATEST.zip
-      - name: download baseline
-        uses: actions/download-artifact@v1
-        with:
-          name: baseline
-      - name: Scan with baseline
-        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "${{secrets.VERACODE_API_ID}}" --veracode_api_key "${{secrets.VERACODE_API_KEY}}" --file "example.jar" --baseline_file "baseline/baseline.json"
+      - name: Run Pipeline Scanner
+        run: java -Dpipeline.debug=true -jar pipeline-scan.jar --veracode_api_id "3848a424a18113931339cf47e3b6203e" --veracode_api_key "3f808860367da0428092fa323c61981f20c74e5a78a1cf9d33e99be08aeb9b1f788c4119df74d6d6cace3296bf3681286d08fdfc7df91fdb4f6c2db7eb41c174" --f "example.jar" --fail_on_severity="Very High, High"
