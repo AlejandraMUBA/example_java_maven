@@ -15,7 +15,7 @@ jobs:
       - name: build
         run: mvn clean verify --file pom.xml
       - name: Review artifacts
-        run: ls /target
+        run: ls target
       - name: Upload jar
         uses: actions/upload-artifact@v2
         with:
