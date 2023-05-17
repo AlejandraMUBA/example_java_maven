@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build
-        run: mvn clean verify --f pom.xml
+        run: mvn clean verify --f ../bin/pom.xml
   pipeline-scan:
     runs-on: ubuntu-latest
     steps:
