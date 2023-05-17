@@ -22,7 +22,7 @@ jobs:
          name: Vulapp
          path: target/example-java-maven-1.0-SNAPSHOT.jar
   pipeline-scan:
-    
+    needs: build
     runs-on: ubuntu-latest
     env:
       SRCCLR_API_TOKEN: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzc4NjUyLCJleHAiOjE2ODMyNzQwMTEsImF1dGhvcml0aWVzIjoiQUdFTlQiLCJqdGkiOiJhZTVjMThjMi1iNjkyLTQ0ZjQtOTk5NS1jNGU4YmQxZjAyODgiLCJjbGllbnRfaWQiOiIiLCJzY29wZSI6W119.tnH5x-TaYtvwZOv9OyjIFzJgUo0NvLLmdxElGSLqbf6-QKyN8z7ww3BesfWuWBCLtfv7Hpxz112ZNC5uPZD8OwMNEnCjV_nB5mPUGGihTEQs-0YpCHqSWNlyZSE91zdz2Hgo0__8WbbtYvSZ1o_DxqFdkUccbJ2iqYY_phX6OpA"
